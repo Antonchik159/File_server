@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завантаження файлів</title>
+</head>
+<body>
+    <style>
+
+        h1 {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            align-items: center;
+            text-align: center;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #007BFF;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #333;
+        }
+
+        a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+    <h1>Завантажте файли</h1>
+    <form action="/upload/" enctype="multipart/form-data" method="post">
+        <input name="files" type="file" multiple>
+        <input type="submit" value="Завантажити">
+    </form>
+    <center>
+        <a href="/files/">Усі файли</a>
+    </center>
+</body>
+</html>

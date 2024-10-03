@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завантажені файли</title>
+</head>
+<body>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .file-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .file-item {
+            width: 130px;
+            text-align: center;
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .file-item:hover {
+            transform: scale(1.05);
+        }
+
+        .file-preview {
+            display: block;
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            margin-bottom: 10px;
+        }
+
+        .file-item a {
+            display: block;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+            margin-top: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100px;
+            margin-bottom: 5px;
+        }
+
+        .file-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Кнопка назад */
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #555;
+        }
+        button {
+            background-color: #007BFF;
+            color: #333;
+            border-radius: 5px;
+            padding: 3px 5px;
+        }
+    </style>
+
+    <h1>Список завантажених файлів</h1>
+    <div class="file-grid">
+        {% for file in files %}
+        <div class="file-item">
+            <!-- Предосмотр изображений -->
+            {% if file.endswith(('.png', '.jpg', '.jpeg', '.gif')) %}
+                <img class="file-preview" src="{{ file }}" alt="preview">
+            {% elif file.endswith('.pdf') %}
+                <!-- Предосмотр PDF-файлов -->
+                <embed class="file-preview" src="{{ file }}" type="application/pdf" width="150" height="200">
+            {% elif file.endswith(('.mp4', '.mov', '.avi')) %}
+                <!-- Предосмотр видеофайлов -->
+                <video class="file-preview" width="150" height="150" controls>
+                    <source src="{{ file }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% else %}
+                <!-- Иконка для других файлов -->
+                <img class="file-preview" alt="file icon">
+            {% endif %}
+            <a href="{{ file }}" download>{{ file.split('/')[-1] }}</a>
+            <form action="/files/delete/" method="post" onsubmit="return confirm('Вы уверены, что хотите удалить этот файл?');">
+                <input type="hidden" name="filename" value="{{ file.split('/')[-1] }}">
+                <button type="submit">Видалити</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="/">Назад</a>
+</body>
+</html>
